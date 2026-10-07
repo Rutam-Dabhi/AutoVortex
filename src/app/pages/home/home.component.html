@@ -1,0 +1,77 @@
+<section class="hero-section">
+  <div class="hero-image"></div><div class="hero-shade"></div>
+  <div class="container-fluid shell-width hero-content">
+    <div class="hero-copy">
+      <div class="eyebrow light-eyebrow"><span></span> THE DRIVE BEGINS HERE</div>
+      <h1>Find your<br>kind of <span>freedom.</span></h1>
+      <p>Remarkable cars. The right parts. One place<br class="d-none d-sm-block"> for every road ahead.</p>
+      <div class="hero-actions">
+        <a class="btn btn-red btn-lg" routerLink="/vehicles">Explore vehicles <i class="bi bi-arrow-up-right"></i></a>
+        <a class="hero-link" routerLink="/parts">Shop spare parts <i class="bi bi-arrow-right"></i></a>
+      </div>
+      <div class="hero-trust"><i class="bi bi-patch-check-fill"></i> Curated, checked & ready for the road</div>
+    </div>
+    <div class="hero-caption"><span>01 / 03</span><span class="caption-line"></span><span>THE VORTEX GT</span></div>
+  </div>
+  <div class="hero-scroll"><span>SCROLL TO EXPLORE</span><i class="bi bi-arrow-down"></i></div>
+</section>
+
+<section class="quick-search-section">
+  <div class="container-fluid shell-width">
+    <form class="quick-search" (submit)="$event.preventDefault()">
+      <div class="search-title"><span class="eyebrow">START YOUR SEARCH</span><strong>What are you looking for?</strong></div>
+      <label class="search-field"><i class="bi bi-search"></i><input [(ngModel)]="searchTerm" name="search" placeholder="Try “electric”, “Porsche 911”..." aria-label="Search vehicles"></label>
+      <a class="btn btn-red search-submit" [routerLink]="['/vehicles']" [queryParams]="{ search: searchTerm }">Find your car <i class="bi bi-arrow-right"></i></a>
+      <a class="quick-part-link" routerLink="/parts"><i class="bi bi-gear-wide-connected"></i> Find a part</a>
+    </form>
+  </div>
+</section>
+
+<section class="section-block featured-section">
+  <div class="container-fluid shell-width">
+    <div class="section-heading">
+      <div><span class="eyebrow">HANDPICKED FOR YOU</span><h2>Meet your next <span>drive.</span></h2></div>
+      <a class="text-link" routerLink="/vehicles">View all vehicles <i class="bi bi-arrow-up-right"></i></a>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-xl-4" *ngFor="let vehicle of store.vehicles.slice(0, 3)">
+        <app-vehicle-card [vehicle]="vehicle"></app-vehicle-card>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="promo-strip">
+  <div class="container-fluid shell-width promo-inner">
+    <div class="promo-copy">
+      <span class="eyebrow light-eyebrow"><span></span> BUILT FOR YOUR MACHINE</span>
+      <h2>The right part<br>changes <em>everything.</em></h2>
+      <p>Genuine quality. Perfect fit. Delivered to your door.</p>
+      <a class="btn btn-light-outline" routerLink="/parts">Explore spare parts <i class="bi bi-arrow-up-right"></i></a>
+    </div>
+    <div class="promo-image"><img src="https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?auto=format&fit=crop&w=1000&q=85" alt="Precision automotive parts" loading="lazy"></div>
+    <div class="promo-stamp"><i class="bi bi-gear-wide-connected"></i><span>MADE FOR<br>THE DRIVE</span></div>
+  </div>
+</section>
+
+<section class="section-block parts-preview-section">
+  <div class="container-fluid shell-width">
+    <div class="section-heading">
+      <div><span class="eyebrow">KEEP YOUR DRIVE ALIVE</span><h2>Parts with a <span>purpose.</span></h2></div>
+      <a class="text-link" routerLink="/parts">Shop all parts <i class="bi bi-arrow-up-right"></i></a>
+    </div>
+    <div class="row g-4">
+      <div class="col-6 col-lg-3" *ngFor="let part of store.parts.slice(0, 4)">
+        <app-part-card [part]="part"></app-part-card>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="service-row">
+  <div class="container-fluid shell-width">
+    <span><i class="bi bi-patch-check"></i> Quality inspected</span>
+    <span><i class="bi bi-truck"></i> Delivered to your door</span>
+    <span><i class="bi bi-arrow-repeat"></i> Hassle-free returns</span>
+    <span><i class="bi bi-headset"></i> Here when you need us</span>
+  </div>
+</section>

@@ -1,0 +1,39 @@
+<section class="cart-section section-block">
+  <div class="container-fluid shell-width">
+    <div class="breadcrumb-line dark-breadcrumb"><a routerLink="/">Home</a><i class="bi bi-chevron-right"></i> Your cart</div>
+    <div class="cart-heading"><div><span class="eyebrow">ALMOST YOURS</span><h1>Your <span>cart.</span></h1></div><span>{{ store.cartCount }} {{ store.cartCount === 1 ? 'item' : 'items' }}</span></div>
+    <div class="cart-layout" *ngIf="store.cartLines.length; else emptyCart">
+      <div class="cart-items">
+        <article class="cart-item" *ngFor="let item of store.cartLines; trackBy: trackLine">
+          <img [src]="item.image" [alt]="item.name">
+          <div class="cart-item-info">
+            <span class="part-category">{{ item.type === 'vehicle' ? 'VEHICLE' : 'SPARE PART' }}</span>
+            <h3>{{ item.name }}</h3>
+            <p>{{ item.detail }}</p>
+            <button class="remove-item" (click)="store.removeFromCart(item)"><i class="bi bi-trash3"></i> Remove</button>
+          </div>
+          <div class="quantity-control">
+            <button (click)="store.changeQuantity(item, -1)" [attr.aria-label]="'Decrease quantity of ' + item.name"><i class="bi bi-dash"></i></button>
+            <span>{{ item.quantity }}</span>
+            <button (click)="store.changeQuantity(item, 1)" [attr.aria-label]="'Increase quantity of ' + item.name"><i class="bi bi-plus"></i></button>
+          </div>
+          <strong class="cart-item-price">{{ item.price * item.quantity | currency:'INR':'symbol':'1.0-0':'en-IN' }}</strong>
+        </article>
+        <a class="continue-shopping" routerLink="/vehicles"><i class="bi bi-arrow-left"></i> Continue shopping</a>
+      </div>
+      <aside class="order-summary">
+        <span class="eyebrow">YOUR ORDER</span>
+        <h2>Order summary</h2>
+        <div class="summary-line"><span>Subtotal</span><strong>{{ store.subtotal | currency:'INR':'symbol':'1.0-0':'en-IN' }}</strong></div>
+        <div class="summary-line"><span>Delivery</span><strong class="free-delivery">Complimentary</strong></div>
+        <div class="summary-total"><span>Total</span><strong>{{ store.subtotal | currency:'INR':'symbol':'1.0-0':'en-IN' }}</strong></div>
+        <button class="btn btn-red checkout-button" (click)="checkout()">Proceed to checkout <i class="bi bi-arrow-right"></i></button>
+        <div class="secure-checkout"><i class="bi bi-shield-lock"></i> Secure checkout · Taxes included</div>
+        <div class="summary-help"><i class="bi bi-chat-dots"></i><span>Need a hand?<br><strong>We're here to help.</strong></span></div>
+      </aside>
+    </div>
+    <ng-template #emptyCart>
+      <div class="empty-state cart-empty"><i class="bi bi-bag"></i><h3>Your cart is taking a pit stop</h3><p>Find a car or the right parts for your next drive.</p><a class="btn btn-red" routerLink="/vehicles">Explore vehicles</a><a class="empty-secondary" routerLink="/parts">Shop spare parts</a></div>
+    </ng-template>
+  </div>
+</section>

@@ -1,0 +1,24 @@
+<section class="page-banner parts-banner">
+  <div class="container-fluid shell-width">
+    <span class="eyebrow light-eyebrow"><span></span> THE DETAILS MATTER</span>
+    <h1>Keep your drive<br><span>in motion.</span></h1>
+    <p>Parts you can trust. The perfect fit for the road ahead.</p>
+    <div class="breadcrumb-line"><a routerLink="/">Home</a><i class="bi bi-chevron-right"></i> Spare parts</div>
+  </div>
+</section>
+
+<section class="listing-section section-block">
+  <div class="container-fluid shell-width">
+    <div class="listing-top">
+      <div><span class="eyebrow">CURATED FOR YOUR VEHICLE</span><h2>Spare parts <span class="result-count">{{ filteredParts.length.toString().padStart(2, '0') }}</span></h2></div>
+      <label class="listing-search"><i class="bi bi-search"></i><input [(ngModel)]="searchTerm" placeholder="Find a part or vehicle..." aria-label="Search spare parts"></label>
+    </div>
+    <div class="category-tabs"><button *ngFor="let item of store.categories" [class.category-active]="category === item" (click)="category = item">{{ item }}</button></div>
+    <div class="row g-4 parts-grid" *ngIf="filteredParts.length; else noParts">
+      <div class="col-6 col-md-4 col-xl-3" *ngFor="let part of filteredParts">
+        <app-part-card [part]="part"></app-part-card>
+      </div>
+    </div>
+    <ng-template #noParts><div class="empty-state"><i class="bi bi-gear"></i><h3>No parts found</h3><p>Try searching for a different part or vehicle.</p><button class="btn btn-red" (click)="searchTerm = ''; category = 'All'">Show all parts</button></div></ng-template>
+  </div>
+</section>

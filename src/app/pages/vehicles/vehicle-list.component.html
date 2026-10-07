@@ -1,0 +1,40 @@
+<section class="page-banner">
+  <div class="container-fluid shell-width">
+    <span class="eyebrow light-eyebrow"><span></span> THE AUTO VORTEX COLLECTION</span>
+    <h1>Find the one<br>that <span>moves you.</span></h1>
+    <p>Every vehicle has a story. Let's find the one that's yours.</p>
+    <div class="breadcrumb-line"><a routerLink="/">Home</a><i class="bi bi-chevron-right"></i> Vehicles</div>
+  </div>
+</section>
+
+<section class="listing-section section-block">
+  <div class="container-fluid shell-width">
+    <div class="listing-top">
+      <div><span class="eyebrow">THE COLLECTION</span><h2>Vehicles <span class="result-count">{{ filteredVehicles.length.toString().padStart(2, '0') }}</span></h2></div>
+      <label class="listing-search"><i class="bi bi-search"></i><input [(ngModel)]="searchTerm" placeholder="Search vehicles..." aria-label="Search vehicles"></label>
+    </div>
+    <div class="listing-layout">
+      <aside class="filter-panel">
+        <div class="filter-title"><strong>Filters</strong><button (click)="clearFilters()">Reset all</button></div>
+        <div class="filter-group">
+          <span>Condition</span>
+          <label *ngFor="let condition of conditions"><input type="radio" name="condition" [value]="condition" [(ngModel)]="vehicleCondition"><span>{{ condition === 'All' ? 'All vehicles' : condition }}</span></label>
+        </div>
+        <div class="filter-group">
+          <span>Fuel type</span>
+          <label *ngFor="let fuel of fuels"><input type="radio" name="fuel" [value]="fuel" [(ngModel)]="fuelFilter"><span>{{ fuel === 'All' ? 'All fuel types' : fuel }}</span></label>
+        </div>
+        <div class="filter-note"><i class="bi bi-patch-check"></i><span>Every pre-owned vehicle is carefully inspected by our team.</span></div>
+      </aside>
+      <div class="listing-results">
+        <div class="sort-row"><span>Showing <strong>{{ filteredVehicles.length }}</strong> of {{ store.vehicles.length }} vehicles</span><button (click)="clearFilters()">Clear filters <i class="bi bi-x"></i></button></div>
+        <div class="row g-4" *ngIf="filteredVehicles.length; else noVehicles">
+          <div class="col-md-6 col-xl-4" *ngFor="let vehicle of filteredVehicles">
+            <app-vehicle-card [vehicle]="vehicle"></app-vehicle-card>
+          </div>
+        </div>
+        <ng-template #noVehicles><div class="empty-state"><i class="bi bi-car-front"></i><h3>No vehicles found</h3><p>Try another search or clear your filters.</p><button class="btn btn-red" (click)="clearFilters()">Clear filters</button></div></ng-template>
+      </div>
+    </div>
+  </div>
+</section>

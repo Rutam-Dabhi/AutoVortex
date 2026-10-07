@@ -1,0 +1,41 @@
+<div class="announcement-bar">
+  <div class="container-fluid shell-width announcement-inner">
+    <span class="announcement-message"><i class="bi bi-lightning-charge-fill"></i> The road is calling. Your next drive starts here.</span>
+    <span class="announcement-right">Complimentary delivery on orders over ₹10,000 <i class="bi bi-arrow-up-right"></i></span>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="navbar container-fluid shell-width" aria-label="Main navigation">
+    <a class="brand-lockup" routerLink="/" (click)="closeMobileNav()" aria-label="AutoVortex home">
+      <span class="brand-mark"><i class="bi bi-speedometer2"></i></span>
+      <span>AUTO<span class="brand-red">VORTEX</span><small>DRIVE YOUR OWN WAY</small></span>
+    </a>
+
+    <div class="header-nav">
+      <a class="nav-link" routerLink="/" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active">Home</a>
+      <a class="nav-link" routerLink="/vehicles" routerLinkActive="active">Vehicles</a>
+      <a class="nav-link" routerLink="/parts" routerLinkActive="active">Spare parts</a>
+      <a class="nav-link" routerLink="/" fragment="about" (click)="closeMobileNav()">About us</a>
+    </div>
+
+    <div class="header-actions">
+      <button class="icon-button wishlist-trigger" aria-label="Wishlist" (click)="showWishlist()">
+        <i class="bi bi-heart"></i><span class="action-count" *ngIf="store.wishlistCount">{{ store.wishlistCount }}</span>
+      </button>
+      <a class="icon-button cart-trigger" routerLink="/cart" aria-label="Shopping cart">
+        <i class="bi bi-bag"></i><span class="action-count">{{ store.cartCount }}</span>
+      </a>
+      <button class="btn btn-red header-cta" (click)="openVehicles()">Explore cars <i class="bi bi-arrow-up-right"></i></button>
+      <button class="navbar-toggler" type="button" (click)="toggleMobileNav()" [attr.aria-expanded]="mobileNavOpen" aria-controls="mobileNav" aria-label="Toggle navigation">
+        <i class="bi" [class.bi-list]="!mobileNavOpen" [class.bi-x-lg]="mobileNavOpen"></i>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-nav" id="mobileNav" *ngIf="mobileNavOpen">
+    <a routerLink="/" (click)="closeMobileNav()">Home</a>
+    <a routerLink="/vehicles" (click)="closeMobileNav()">Vehicles</a>
+    <a routerLink="/parts" (click)="closeMobileNav()">Spare parts</a>
+    <a routerLink="/cart" (click)="closeMobileNav()">Your cart <span>{{ store.cartCount }}</span></a>
+  </div>
+</header>

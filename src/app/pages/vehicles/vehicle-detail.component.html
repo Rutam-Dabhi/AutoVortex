@@ -1,0 +1,33 @@
+<section class="details-section section-block" *ngIf="vehicle; else missingVehicle">
+  <div class="container-fluid shell-width">
+    <div class="breadcrumb-line dark-breadcrumb"><a routerLink="/">Home</a><i class="bi bi-chevron-right"></i><a routerLink="/vehicles">Vehicles</a><i class="bi bi-chevron-right"></i>{{ vehicle.name }}</div>
+    <div class="details-layout">
+      <div class="gallery">
+        <div class="gallery-main"><img [src]="selectedImage" [alt]="vehicle.name"><span class="vehicle-label">{{ vehicle.tag || vehicle.type }}</span></div>
+        <div class="gallery-thumbs">
+          <button *ngFor="let image of galleryImages; let i = index" [class.thumb-active]="image === selectedImage" (click)="selectedImage = image" [attr.aria-label]="'View vehicle photo ' + (i + 1)"><img [src]="image" alt="" loading="lazy"></button>
+        </div>
+      </div>
+      <div class="details-copy">
+        <span class="eyebrow">AUTOVORTEX VERIFIED</span>
+        <h1>{{ vehicle.name }}</h1>
+        <div class="detail-subtitle">{{ vehicle.year }} <span>·</span> {{ vehicle.type }} <span>·</span> {{ vehicle.fuel }}</div>
+        <div class="detail-price">{{ vehicle.price | currency:'INR':'symbol':'1.0-0':'en-IN' }}<span>Inclusive of taxes</span></div>
+        <div class="availability"><span></span> Available now <span class="availability-separator">·</span> Ready for a test drive</div>
+        <p class="detail-description">{{ vehicle.description }}</p>
+        <div class="spec-grid">
+          <div><i class="bi bi-fuel-pump"></i><span>Fuel type</span><strong>{{ vehicle.fuel }}</strong></div>
+          <div><i class="bi bi-gear"></i><span>Transmission</span><strong>{{ vehicle.transmission }}</strong></div>
+          <div><i class="bi bi-speedometer"></i><span>Performance</span><strong>{{ vehicle.mileage }}</strong></div>
+          <div><i class="bi bi-calendar3"></i><span>Model year</span><strong>{{ vehicle.year }}</strong></div>
+        </div>
+        <button class="btn btn-red detail-book" (click)="bookVehicle()">Book this vehicle <i class="bi bi-arrow-up-right"></i></button>
+        <button class="detail-wishlist" [class.is-saved]="store.isWishlisted(vehicle.id)" (click)="store.toggleWishlist(vehicle.id)"><i [class]="store.isWishlisted(vehicle.id) ? 'bi bi-heart-fill' : 'bi bi-heart'"></i> {{ store.isWishlisted(vehicle.id) ? 'Saved to wishlist' : 'Add to wishlist' }}</button>
+        <div class="verified-note"><i class="bi bi-shield-check"></i> Inspected and verified by AutoVortex</div>
+      </div>
+    </div>
+  </div>
+</section>
+<ng-template #missingVehicle>
+  <section class="section-block"><div class="container-fluid shell-width empty-state"><i class="bi bi-car-front"></i><h3>Vehicle not found</h3><p>This vehicle may no longer be available.</p><a class="btn btn-red" routerLink="/vehicles">Browse vehicles</a></div></section>
+</ng-template>
